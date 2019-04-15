@@ -2,7 +2,7 @@
 /messages takes a message (a string) as a POST and returns the SHA256 hash digest of that message (in hexadecimal format)
 /messages/ is a GET request that returns the original message. A request to a non-existent should return a 404 error
 
-Run Server:
+HOW TO RUN:
 chmod +x setup.sh
 sudo sh setup.sh
 
@@ -53,7 +53,7 @@ Write a program to find the best two items. It takes two inputs:
 1. A filename with a list of sorted prices
 2. The balance of your gift card
 
-Run: 
+HOW TO RUN: 
 python find-pair prices.txt 1100
 
 Notes: 

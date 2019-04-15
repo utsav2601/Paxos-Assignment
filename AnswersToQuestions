@@ -1,0 +1,31 @@
+Scaling Question:
+What would the bottleneck(s) be in your implementation as you acquire more users? How you might scale your
+microservice?
+
+
+=> Assignment done as part of this project is very very basic.  Usually in terms of scaling there are multiple layers that plays an important part like: 
+Distribute resources along various nodes
+Loadbalancer to scale horizontally
+Session storage to minimize authentication queries (also for browser sessions)
+Database index and caching (faster db queries)
+Proxy server (nginx) to serve static files and ignore loading files off the disk (or using aws s3 like services which are specifically built to serve static files)
+etc... 
+
+
+How would you improve your deployment process if you needed to maintain this application long term?
+
+=> Containers are pretty good for testing purpose. Development code should be first tested either using containers or seperate environment/node and only then staged to production with minimum run time. 
+The key point in the deployment process is to minimize the build time of product as well as to minimize the maintaince time. 
+For build purpose we can use services like jenkins
+For minimum deployment time we can setup a backup node continue to sync the backup. When the build is ready to be uploaded 
+upload the build to backup node and then sync production node with backup node. This strategy is generally useful to have minimum deployment time but has its caveats.
+
+
+What is the big O notation for your program?
+worst case log(n)
+best case O(1)
+average case O(n)
+
+ 
+
+
