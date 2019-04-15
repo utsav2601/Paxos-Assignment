@@ -1,0 +1,14 @@
+{
+  "name": "solution_utsav_popli",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "Utsav Popli",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "nodemon": "^1.18.11"
+  }
+}

@@ -1,0 +1,46 @@
+##Usage python find-pair.py <filename> <sum> 
+import csv,sys
+filename=""
+sum = 0
+data = [] ##Collect prices 
+prices = []
+
+def readFromFile(filename):
+	try:
+		with open('prices.txt', 'r') as f:
+			reader = csv.reader(f, delimiter=',')
+			for row in reader:
+				data.append(int(row[1]))
+				prices.append(row[0])
+	except Exception,e:
+		print "Error opening file: ", e
+
+
+def findPair():
+	i = 0 #left marker
+	j = len(data)-1 #right marker
+	availablePrice = data[i] + data[j] #Max available price available
+	while i+1 < j:
+		if  availablePrice == sum:
+			break
+		if sum < availablePrice:
+			j = j - 1
+		if sum > availablePrice: 
+			i = i+1
+		availablePrice = data[i] + data[j]
+	if sum < availablePrice:
+		print "Not possible"
+	else: 
+		print prices[i], ":", data[i] 
+		print prices[j], ":", data[j] 
+
+if __name__ == "__main__":
+	argv = sys.argv
+	#skipping python parser
+	if len(argv) != 3:
+		print "Missing required arguments: find-pair.py <filename> <sum>"
+		sys.exit(1)	
+	filename= argv[1]
+	sum = int(argv[2])
+	readFromFile(filename)
+	findPair()

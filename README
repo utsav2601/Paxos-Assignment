@@ -1,0 +1,77 @@
+				  Challenge 1: 
+/messages takes a message (a string) as a POST and returns the SHA256 hash digest of that message (in hexadecimal format)
+/messages/ is a GET request that returns the original message. A request to a non-existent should return a 404 error
+
+Run Server:
+chmod +x setup.sh
+sudo sh setup.sh
+
+Entry: Setup.sh
+Create a docker image from Node image
+Copy package.json and server.js file to target folder
+Install dependecies
+Expose port 8080 of docker with host 8080(change host port in setup.sh if required)
+Start container in background
+Run server with nodemon
+
+
+Note:
+->Code runs inside docker
+->Assuming user have valid priviledges to run script
+->Assuming user send the correct input to the server 
+->Assuming user port 8080 is already not in use(will cause bind failure)
+->Code does not handle error cases like invalid messages 
+->To simplify we are using dictionary to store values, that means the that database remains only for the lifetime of server
+->Using nodemon just in case if server crashes
+
+Working Commands: 
+
+[root@ip-172-30-0-158 utsav]# curl -X POST http://localhost:8080/messages -d '{"message":"foo"}'  -H "Content-Type: application/json"
+{"digest":"2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"}
+
+[root@ip-172-30-0-158 utsav]# curl -X POST http://localhost:8080/messages -d '{"message":""}'  -H "Content-Type: application/json"
+not a valid message
+
+
+ot@ip-172-30-0-158 utsav]# curl -X GET  http://localhost:8080/messages/"2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+{"message":"foo"}
+
+
+[root@ip-172-30-0-158 utsav]# curl -i -X GET  http://localhost:8080/messages/"somexyzfdfdddfd"
+HTTP/1.1 404 Not Found
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 31
+ETag: W/"1f-l5RY5OilOpuCTtkgkTVsSEnMCWc"
+Date: Mon, 15 Apr 2019 06:50:28 GMT
+Connection: keep-alive
+
+{"err_msg":"message not found"}
+
+				  Challenge 2
+Write a program to find the best two items. It takes two inputs:
+1. A filename with a list of sorted prices
+2. The balance of your gift card
+
+Run: 
+python find-pair prices.txt 1100
+
+Notes: 
+Assuming file always exist
+Assuming each price has valid price 
+Assuming prices give is in sorted order 
+Assuming file is in proper format
+
+
+Entry: find-pair
+It takes filename and sum to find as input(number of arguments 3 including filename)
+Read the file with delimiter as ','
+
+
+Working Commands:
+[root@ip-172-30-0-158 utsav]# python find-pair prices.txt 1100
+Not possible
+
+[root@ip-172-30-0-158 utsav]# python find-pair prices.txt 2500
+Candy Bar : 500
+Earmuffs : 2000
