@@ -1,7 +1,7 @@
 ##Usage python find-pair.py <filename> <sum> 
 import csv,sys
 filename=""
-sum = 0
+limit = 0
 data = [] ##Collect prices 
 prices = []
 
@@ -18,21 +18,40 @@ def readFromFile(filename):
 
 def findPair():
 	i = 0 #left marker
-	j = len(data)-1 #right marker
-	availablePrice = data[i] + data[j] #Max available price available
-	while i+1 < j:
-		if  availablePrice == sum:
-			break
-		if sum < availablePrice:
-			j = j - 1
-		if sum > availablePrice: 
-			i = i+1
-		availablePrice = data[i] + data[j]
-	if sum < availablePrice:
+	length = len(data)-1 #right marker
+	j = length
+	availablePrice = sys.maxint
+	resultI = -1
+	resultJ = -1
+#base case: 
+#limit should be greater than data[i]
+	if limit < data[i]:
 		print "Not possible"
-	else: 
-		print prices[i], ":", data[i] 
-		print prices[j], ":", data[j] 
+		sys.exit(18)
+		
+	while i < j:
+		availablePrice = data[i] + data[j]
+		if availablePrice == limit: #if price match
+			resultI = i
+			resultJ = j
+			break
+		elif limit < availablePrice: #if our limit falls within the sum
+			resultI = i
+			resultJ = j
+			j = j - 1
+		elif limit > availablePrice:
+			i = i + 1
+
+	if resultI == -1 or resultJ == -1: #if not solution found
+		print "Not possible"
+		sys.exit(19)
+
+	if limit > availablePrice: ##if limit is still out of boundaries
+		print "Not possible"
+		sys.exit(20)
+
+	print prices[i], ":", data[resultI] 
+	print prices[j], ":", data[resultJ]
 
 if __name__ == "__main__":
 	argv = sys.argv
@@ -41,6 +60,6 @@ if __name__ == "__main__":
 		print "Missing required arguments: find-pair.py <filename> <sum>"
 		sys.exit(1)	
 	filename= argv[1]
-	sum = int(argv[2])
+	limit = int(argv[2])
 	readFromFile(filename)
 	findPair()
