@@ -1,4 +1,6 @@
-				  Challenge 1: 
+				Paxos Assignment I hope this would help someone else
+				
+						Challenge 1: 
 /messages takes a message (a string) as a POST and returns the SHA256 hash digest of that message (in hexadecimal format)
 /messages/ is a GET request that returns the original message. A request to a non-existent should return a 404 error
 
